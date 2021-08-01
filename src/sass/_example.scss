@@ -1,0 +1,107 @@
+body {
+  margin: 0px;
+  padding: 20px;
+  background-image: url(../images/karta.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0px 100px;
+  background-color: #0b0b53;
+  font-weight: normal;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: #ffff;
+}
+
+h1 {
+  margin-top: 50px;
+  font-size: 50px;
+}
+
+.country_input {
+  display: inline-block;
+  margin: 0 auto;
+  max-width: 100%;
+  width: 700px;
+  padding: 10px;
+  font-size: 24px;
+  box-sizing: border-box;
+  color: #0b0b53;
+  border: 1px solid #dfdae7;
+  border-radius: 8px;
+  background-color: #dfdae7;
+  outline: none;
+
+  margin-left: auto;
+  margin-right: auto;
+  &::placeholder {
+    color: rgba($color: #0b0b53, $alpha: 0.2);
+  }
+}
+
+.card {
+  display: inline-block;
+  margin-top: 30px;
+}
+
+.contry_name {
+  font-size: 50px;
+  margin: 0px;
+  margin-bottom: 30px;
+}
+.contry_info {
+  display: flex;
+  padding: 30px;
+  background-color: rgba($color: #1c27cc, $alpha: 0.4);
+  border-radius: 6px;
+}
+
+.contry_flag {
+  margin-left: 100px;
+  img {
+    max-width: 500px;
+    width: 100%;
+  }
+}
+
+.card_content {
+  font-size: 40px;
+  text-align: left;
+  margin: 0;
+}
+.contry_capt {
+  margin: 0px;
+  margin-bottom: 15px;
+}
+
+.contry_people {
+  margin: 0px;
+  margin-bottom: 15px;
+}
+
+.contry_langs {
+  margin: 0px;
+
+  list-style: none;
+  padding: 0px;
+}
+
+.contry-list__item {
+  margin-top: 15px;
+  padding-left: 30px;
+}
+
+.contry_list {
+  max-width: 100%;
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 30px;
+  background-color: rgba($color: #1c27cc, $alpha: 0.4);
+  text-align: left;
+  list-style: none;
+}
+
+.contry_item {
+  font-size: 30px;
+  margin-top: 10px;
+}

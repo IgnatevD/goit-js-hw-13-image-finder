@@ -1,0 +1,22 @@
+<articl class="card">
+  <h2 class="contry_name">{{name}}</h2>
+  <div class="contry_info">
+   
+      <div class="card_content">
+        <p class="contry_capt">Capital: {{capital}}</p>
+        <p class="contry_people">Population: {{population}}</p>
+
+        <ul class="contry_langs">
+          languages:
+          {{#each languages}}
+          <li class="contry-list__item">&#10003; {{this.name}}</li>
+          {{/each}}
+        </ul>
+      </div>
+
+        <div class="contry_flag">
+          <img src={{flag}} alt={{name}} class="contry_image" />
+        </div>
+
+  </div>
+  </article>
