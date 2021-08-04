@@ -1,6 +1,9 @@
 import _ from 'lodash';
 import { BASE_URL_FN } from './config.js';
 import pixabayApi from '../templates/pixabayApi';
+import "@pnotify/core/dist/PNotify.css";
+import "@pnotify/core/dist/BrightTheme.css";
+import { error } from "@pnotify/core";
 
 let nameInput = "";
 let page = 1;
@@ -13,6 +16,8 @@ const searchForm = document.querySelector('.search-input');
 searchForm.addEventListener('input', _.debounce(fetchPixabayImg, 500));
 
 async function fetchPixabayImg(e) {
+try {
+ 
     if (e.target.value !== nameInput) {
         gallery.innerHTML = "";
         page = 1;
@@ -26,7 +31,12 @@ async function fetchPixabayImg(e) {
         const lastElementImg = gallery.lastElementChild;
         observer.observe(lastElementImg);
     }
-
+} catch (err) {
+    error({
+          title: "Ошибка ввода",
+          text: "Введите коректное название",
+        })
+  }
 
 }
 
