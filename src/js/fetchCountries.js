@@ -1,36 +1,75 @@
-
 import _ from 'lodash';
-import countryCard from '../templates/countrys';
-import countryList from '../templates/countryList';
-import "@pnotify/core/dist/PNotify.css";
-import "@pnotify/core/dist/BrightTheme.css";
-import { error } from "@pnotify/core";
+import { BASE_URL_FN } from './config.js';
+import pixabayApi from '../templates/pixabayApi';
 
-const BASE_URL = 'https://restcountries.eu/rest/v2/name/';
-const cardNode = document.querySelector('.country_card');
-const inputNode = document.querySelector('.country_input');
+let nameInput = "";
+let page = 1;
+let allImg;
 
-inputNode.addEventListener('input', _.debounce(fetchCountries, 500));
+const gallery = document.querySelector('.gallery');
+const searchForm = document.querySelector('.search-input');
 
-function fetchCountries(searchQuery) {
-  fetch(BASE_URL + searchQuery.target.value)
-    .then(response => response.json())
-    .then(countrys => {
-        if (countrys.length === 1) {
-            cardNode.innerHTML = countryCard(countrys[0]);
+
+searchForm.addEventListener('input', _.debounce(fetchPixabayImg, 500));
+
+async function fetchPixabayImg(e) {
+    if (e.target.value !== nameInput) {
+        gallery.innerHTML = "";
+        page = 1;
+    }
+
+    if (e.target.value !== "") {
+        nameInput = e.target.value;
+        const urlCart = await getUrl(nameInput, page);
+        await renderPage(urlCart.hits);
+        
+        const lastElementImg = gallery.lastElementChild;
+        observer.observe(lastElementImg);
+    }
+
+
+}
+
+async function getUrl(nameInput, page) {
+    const getUrlFetch = await fetch(BASE_URL_FN(nameInput, page));
+    return  getUrlFetch.json();
+}
+
+async function renderPage(el) {
+    let counter = 0;
+    el.forEach((img) => {
+        gallery.insertAdjacentHTML('beforeend', pixabayApi(img));
+        const lastImg = gallery.lastElementChild.querySelector('img');
+        lastImg.onload = () => {
+            if (++counter >= el.length) {
+                document.querySelectorAll('.hide').forEach(node => {
+                    node.classList.remove('hide')
+                }) 
+            }
         }
-        else if (countrys.length <= 10 && countrys.length >= 2) {
-            const obj = {};
-            obj.country = countrys.map(country => country.name);
-            cardNode.innerHTML = countryList(obj);}
-        else {errorFn()}
     })
 }
 
-function errorFn () {
-    error({
-          title: "Ошибка ввода",
-          text: "Введите полное и верное название страны",
-        })
+async function renderNewPage(nameInput, page) {
+    const urlCart = await getUrl(nameInput, page);
+    await renderPage(urlCart.hits);
+    const lastElementImg = gallery.lastElementChild;
+    observer.observe(lastElementImg);
 }
+
+
+
+const onEntry = (entries, observer) => {
+  entries.forEach(entry => {
+      if (!entry.isIntersecting) return false;
+      page++;
+      renderNewPage(nameInput, page);
+      observer.unobserve(entry.target);
+  });
+};
+
+const observer = new IntersectionObserver(onEntry);
+
+
+
 

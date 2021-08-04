@@ -1,0 +1,5 @@
+{
+    "per_page": "12",
+    "KEY_API": "22732940-a59bc7fc166a5b76f0ac36f93",
+    "BASE_URL": "https://pixabay.com/api/?image_type=photo&orientation=horizontal&q="
+}
