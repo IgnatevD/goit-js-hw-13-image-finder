@@ -48,6 +48,10 @@ async function renderPage(el) {
             }
         }
     })
+    gallery.addEventListener('click', e => {
+        if (e.target.nodeName !== "IMG") return false;
+        e.target.setAttribute('src', e.target.getAttribute('href'));
+        })
 }
 
 async function renderNewPage(nameInput, page) {
